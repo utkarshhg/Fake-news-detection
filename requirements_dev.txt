@@ -1,0 +1,7 @@
+# Dev / CI dependencies (install on top of requirements.txt)
+dagshub
+dvc
+pytest>=7.0
+ruff>=0.3
+mkdocs>=1.5
+jupyter
