@@ -1,0 +1,49 @@
+# Version control
+.git
+.gitignore
+.dvc
+.dvcignore
+dvc_data/
+
+# Development files
+notebooks/
+*.ipynb
+mlruns/
+mlflow.db
+
+# Python cache
+__pycache__/
+*.py[cod]
+*.egg-info/
+.ruff_cache/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+
+# Environment
+.env
+venv/
+.venv/
+env/
+
+# OS
+.DS_Store
+Thumbs.db
+
+# Docker
+Dockerfile
+docker-compose.yml
+.dockerignore
+
+# Documentation source
+docs/
+
+# Tests (not needed in production image)
+tests/
+
+# Stale files
+*_roc.png
+!reports/figures/*_roc.png
