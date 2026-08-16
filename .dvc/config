@@ -1,0 +1,7 @@
+[core]
+    remote = local_storage
+['remote "origin"']
+    url = s3://dvc
+    endpointurl = https://dagshub.com/utkarshhg/Fake-news-detection.s3
+['remote "local_storage"']
+    url = ../dvc_data
