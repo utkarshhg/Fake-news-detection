@@ -1,0 +1,49 @@
+stages:
+
+  data_cleaning:
+    cmd: python -m src.dataset
+    deps:
+      - data/raw/True.csv
+      - data/raw/Fake.csv
+      - src/dataset.py
+    outs:
+      - data/processed/processed_dataset.csv
+
+  featurize:
+    cmd: python -m src.features
+    deps:
+      - data/processed/processed_dataset.csv
+      - src/features.py
+    outs:
+      - data/features/X_train.pkl
+      - data/features/X_test.pkl
+      - data/features/y_train.pkl
+      - data/features/y_test.pkl
+      - models/tfidf_vectorizer.joblib
+
+  train_models:
+    cmd: python -m src.modeling.train
+    deps:
+      - data/features/X_train.pkl
+      - data/features/y_train.pkl
+      - src/modeling/train.py
+      - params.yaml
+    outs:
+      - models/multinomialnb.joblib
+      - models/bernoullinb.joblib
+      - models/randomforest.joblib
+      - models/lightgbm.joblib
+
+  evaluate:
+    cmd: python -m src.modeling.evaluate
+    deps:
+      - data/features/X_test.pkl
+      - data/features/y_test.pkl
+      - src/modeling/evaluate.py
+      - models/multinomialnb.joblib
+      - models/bernoullinb.joblib
+      - models/randomforest.joblib
+      - models/lightgbm.joblib
+    metrics:
+      - metrics.json:
+          cache: false
