@@ -1,0 +1,407 @@
+
+
+@import url('https://fonts.googleapis.com/css2?family=Sora:wght@500;600;700&family=Inter:wght@300;400;500;600;700&display=swap');
+
+
+:root {
+    --ink:            #101828;
+    --ink-soft:       #475467;
+    --ink-muted:      #8a94a6;
+    --surface:        #ffffff;
+    --surface-2:      #f7f8fb;
+    --surface-3:      #eef1f7;
+    --line:           #e3e8ef;
+    --line-strong:    #cfd6e4;
+
+    --brand:          #3538cd;
+    --brand-strong:   #262a9e;
+    --brand-soft:     #eef0ff;
+
+    --success:        #067647;
+    --warning:        #b54708;
+    --danger:         #b42318;
+
+    --radius-sm:      8px;
+    --radius:         12px;
+    --radius-lg:      16px;
+
+    --shadow-xs:      0 1px 2px rgba(16, 24, 40, 0.05);
+    --shadow-sm:      0 1px 3px rgba(16, 24, 40, 0.07), 0 1px 2px rgba(16, 24, 40, 0.04);
+    --shadow-md:      0 8px 24px -8px rgba(16, 24, 40, 0.14);
+
+    --font-body:      'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+    --font-display:   'Sora', 'Inter', sans-serif;
+}
+
+
+.stApp {
+    font-family: var(--font-body);
+    color: var(--ink);
+    background:
+        radial-gradient(1100px 460px at 12% -8%, #eef0ff 0%, rgba(238, 240, 255, 0) 62%),
+        radial-gradient(900px 420px at 96% 0%, #e9f3ff 0%, rgba(233, 243, 255, 0) 58%),
+        var(--surface-2);
+    background-attachment: fixed;
+}
+
+#MainMenu { visibility: hidden; }
+header { visibility: hidden; }
+footer { visibility: hidden; }
+
+.block-container {
+    padding-top: 2.4rem;
+    padding-bottom: 4rem;
+    max-width: 1200px;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-display);
+    color: var(--ink);
+    font-weight: 600;
+    letter-spacing: -0.015em;
+}
+
+h2 { font-size: 1.7rem; }
+h5 {
+    font-size: 0.82rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--ink-soft);
+    font-weight: 600;
+}
+
+p, li, label, .stMarkdown { color: var(--ink-soft); }
+
+hr, .stApp [data-testid="stDivider"] { border-color: var(--line); }
+
+a { color: var(--brand); text-decoration: none; }
+a:hover { color: var(--brand-strong); text-decoration: underline; }
+
+
+.page-head {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-lg);
+    padding: 22px 26px;
+    margin-bottom: 22px;
+    box-shadow: var(--shadow-sm);
+    position: relative;
+    overflow: hidden;
+}
+
+.page-head::before {
+    content: "";
+    position: absolute;
+    left: 0; top: 0; bottom: 0;
+    width: 4px;
+    background: linear-gradient(180deg, var(--brand) 0%, #6172f3 100%);
+}
+
+.page-head .eyebrow {
+    font-size: 0.7rem;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--brand);
+    font-weight: 600;
+}
+
+.page-head h2 {
+    font-size: 1.65rem;
+    margin: 4px 0 4px;
+}
+
+.page-head p {
+    margin: 0;
+    font-size: 0.92rem;
+    color: var(--ink-muted);
+}
+
+
+.section-label {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    font-size: 0.76rem;
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: var(--ink-soft);
+    margin: 4px 0 10px;
+}
+
+.section-label::after {
+    content: "";
+    flex: 1;
+    height: 1px;
+    background: linear-gradient(90deg, var(--line) 0%, rgba(227, 232, 239, 0) 100%);
+}
+
+
+.surface-card {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: 18px 20px;
+    box-shadow: var(--shadow-xs);
+}
+
+
+div[data-testid="stMetric"] {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: 18px 20px;
+    box-shadow: var(--shadow-xs);
+    transition: transform 0.18s ease, box-shadow 0.18s ease;
+}
+
+div[data-testid="stMetric"]:hover {
+    transform: translateY(-2px);
+    box-shadow: var(--shadow-md);
+}
+
+div[data-testid="stMetric"] label {
+    font-size: 0.72rem;
+    font-weight: 600;
+    letter-spacing: 0.09em;
+    text-transform: uppercase;
+    color: var(--ink-muted);
+}
+
+div[data-testid="stMetric"] [data-testid="stMetricValue"] {
+    font-family: var(--font-display);
+    font-size: 1.75rem;
+    font-weight: 700;
+    color: var(--ink);
+}
+
+
+div[data-testid="stExpander"] {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    margin-bottom: 8px;
+    box-shadow: var(--shadow-xs);
+    overflow: hidden;
+}
+
+div[data-testid="stExpander"] summary {
+    font-weight: 600;
+    font-size: 0.9rem;
+    color: var(--ink);
+    padding: 4px 2px;
+}
+
+div[data-testid="stExpander"] summary:hover { color: var(--brand); }
+
+
+.stButton > button,
+.stDownloadButton > button,
+.stFormSubmitButton > button {
+    border-radius: var(--radius-sm);
+    font-family: var(--font-body);
+    font-weight: 600;
+    font-size: 0.88rem;
+    padding: 0.58rem 1.25rem;
+    border: 1px solid var(--line-strong);
+    background: var(--surface);
+    color: var(--ink);
+    box-shadow: var(--shadow-xs);
+    transition: transform 0.15s ease, box-shadow 0.15s ease,
+                background 0.15s ease, border-color 0.15s ease;
+}
+
+.stButton > button:hover,
+.stDownloadButton > button:hover,
+.stFormSubmitButton > button:hover {
+    background: var(--surface-3);
+    border-color: var(--ink-muted);
+    transform: translateY(-1px);
+}
+
+.stButton > button:active,
+.stFormSubmitButton > button:active { transform: translateY(0); }
+
+.stButton > button[kind="primary"],
+.stFormSubmitButton > button[kind="primary"] {
+    background: linear-gradient(180deg, #4b52e0 0%, var(--brand) 100%);
+    color: #ffffff;
+    border: 1px solid var(--brand-strong);
+    box-shadow: 0 1px 2px rgba(16, 24, 40, 0.12), 0 6px 16px -8px rgba(53, 56, 205, 0.6);
+}
+
+.stButton > button[kind="primary"]:hover,
+.stFormSubmitButton > button[kind="primary"]:hover {
+    background: linear-gradient(180deg, var(--brand) 0%, var(--brand-strong) 100%);
+    border-color: var(--brand-strong);
+}
+
+.stButton > button:disabled,
+.stFormSubmitButton > button:disabled {
+    opacity: 0.55;
+    box-shadow: none;
+    transform: none;
+}
+
+.stButton > button:focus-visible,
+.stFormSubmitButton > button:focus-visible {
+    outline: 2px solid var(--brand);
+    outline-offset: 2px;
+}
+
+
+.stTextArea textarea,
+.stTextInput input,
+.stNumberInput input,
+div[data-baseweb="select"] > div {
+    border-radius: var(--radius-sm) !important;
+    border: 1px solid var(--line-strong) !important;
+    background: var(--surface) !important;
+    font-size: 0.9rem;
+    color: var(--ink) !important;
+    transition: border-color 0.15s ease, box-shadow 0.15s ease;
+}
+
+.stTextArea textarea,
+.stTextInput input,
+.stNumberInput input {
+    padding: 11px 14px;
+}
+
+.stTextArea textarea::placeholder,
+.stTextInput input::placeholder { color: var(--ink-muted); }
+
+.stTextArea textarea:focus,
+.stTextInput input:focus,
+.stNumberInput input:focus,
+div[data-baseweb="select"] > div:focus-within {
+    border-color: var(--brand) !important;
+    box-shadow: 0 0 0 3px rgba(53, 56, 205, 0.12) !important;
+}
+
+.stTextInput label,
+.stTextArea label,
+.stSelectbox label,
+.stNumberInput label {
+    font-size: 0.82rem;
+    font-weight: 600;
+    color: var(--ink-soft);
+}
+
+
+div[data-testid="stForm"] {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: var(--radius-lg);
+    padding: 26px 28px;
+    box-shadow: var(--shadow-md);
+}
+
+
+.stTabs [data-baseweb="tab-list"] {
+    gap: 4px;
+    background: var(--surface-3);
+    border: 1px solid var(--line);
+    border-radius: 10px;
+    padding: 4px;
+}
+
+.stTabs [data-baseweb="tab"] {
+    border-radius: 7px;
+    font-weight: 600;
+    font-size: 0.85rem;
+    padding: 7px 16px;
+    color: var(--ink-soft);
+    transition: background 0.15s ease, color 0.15s ease;
+}
+
+.stTabs [data-baseweb="tab"]:hover { color: var(--ink); }
+
+.stTabs [aria-selected="true"] {
+    background: var(--surface);
+    color: var(--brand) !important;
+    box-shadow: var(--shadow-xs);
+}
+
+.stTabs [data-baseweb="tab-highlight"],
+.stTabs [data-baseweb="tab-border"] { display: none; }
+
+
+section[data-testid="stSidebar"] {
+    background: var(--surface);
+    border-right: 1px solid var(--line);
+}
+
+section[data-testid="stSidebar"] .stRadio label {
+    padding: 8px 12px;
+    border-radius: var(--radius-sm);
+    font-size: 0.9rem;
+    font-weight: 500;
+    color: var(--ink-soft);
+    transition: background 0.15s ease, color 0.15s ease;
+}
+
+section[data-testid="stSidebar"] .stRadio label:hover {
+    background: var(--brand-soft);
+    color: var(--brand);
+}
+
+
+.stDataFrame, div[data-testid="stDataFrame"] {
+    border-radius: var(--radius);
+    border: 1px solid var(--line);
+    overflow: hidden;
+    box-shadow: var(--shadow-xs);
+    background: var(--surface);
+}
+
+
+.stProgress > div > div > div {
+    border-radius: 999px;
+    background: linear-gradient(90deg, var(--brand) 0%, #6172f3 100%);
+}
+
+.stProgress > div > div { border-radius: 999px; background: var(--surface-3); }
+
+
+.stAlert {
+    border-radius: var(--radius);
+    border: 1px solid var(--line);
+    box-shadow: var(--shadow-xs);
+    font-size: 0.88rem;
+}
+
+
+div[data-testid="stPlotlyChart"] {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: var(--radius);
+    padding: 8px;
+    box-shadow: var(--shadow-xs);
+}
+
+
+div[data-testid="stCaptionContainer"], .stCaption {
+    color: var(--ink-muted);
+    font-size: 0.8rem;
+}
+
+
+::-webkit-scrollbar { width: 8px; height: 8px; }
+::-webkit-scrollbar-track { background: transparent; }
+::-webkit-scrollbar-thumb { background: var(--line-strong); border-radius: 999px; }
+::-webkit-scrollbar-thumb:hover { background: var(--ink-muted); }
+
+
+@keyframes riseIn {
+    from { opacity: 0; transform: translateY(6px); }
+    to   { opacity: 1; transform: translateY(0); }
+}
+
+.page-head, .surface-card, div[data-testid="stMetric"] {
+    animation: riseIn 0.32s ease both;
+}
+
+@media (prefers-reduced-motion: reduce) {
+    * { animation: none !important; transition: none !important; }
+}

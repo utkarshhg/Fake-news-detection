@@ -1,0 +1,137 @@
+schema: '2.0'
+stages:
+  data_cleaning:
+    cmd: python -m src.dataset
+    deps:
+    - path: data/raw/Fake.csv
+      hash: md5
+      md5: edcb323a8ed3e9f4d5d84016553009eb
+      size: 62789876
+    - path: data/raw/True.csv
+      hash: md5
+      md5: 4c3c571205b62c7591c451cfe60d6af1
+      size: 53582940
+    - path: src/dataset.py
+      hash: md5
+      md5: 581572ae79528f95028a00f1fa7547a7
+      size: 2504
+    outs:
+    - path: data/processed/processed_dataset.csv
+      hash: md5
+      md5: 9512111bdaf7fcd7aeb5269e5d7ab216
+      size: 57670470
+  data_split_(bow,tfidf):
+    cmd: python src/modeling/train.py
+    deps:
+    - path: data/processed/processed_dataset.csv
+      hash: md5
+      md5: 9512111bdaf7fcd7aeb5269e5d7ab216
+      size: 57670470
+    - path: src/modeling/train.py
+      hash: md5
+      md5: 44ced90362db55ed85ec3f8d718f44b5
+      size: 2302
+  featurize:
+    cmd: python -m src.features
+    deps:
+    - path: data/processed/processed_dataset.csv
+      hash: md5
+      md5: 9512111bdaf7fcd7aeb5269e5d7ab216
+      size: 57670470
+    - path: src/features.py
+      hash: md5
+      md5: 385a4694f84d7c6415625b251ec7847d
+      size: 1821
+    outs:
+    - path: data/features/X_test.pkl
+      hash: md5
+      md5: 64209890eb52463af60247f2f47b9344
+      size: 12771403
+    - path: data/features/X_train.pkl
+      hash: md5
+      md5: c64f3c2b8139b14bac7fffb5cdf469af
+      size: 50622179
+    - path: data/features/y_test.pkl
+      hash: md5
+      md5: 6dfa93d1bd74276c8c58ca0aec3e36cb
+      size: 248140
+    - path: data/features/y_train.pkl
+      hash: md5
+      md5: d14a90f6fc11a7db9dd5cd0d5f3e40c6
+      size: 990052
+    - path: models/tfidf_vectorizer.joblib
+      hash: md5
+      md5: a62f3ea612846f8c9bda8a473594066b
+      size: 180035
+  train_models:
+    cmd: python -m src.modeling.train
+    deps:
+    - path: data/features/X_train.pkl
+      hash: md5
+      md5: c64f3c2b8139b14bac7fffb5cdf469af
+      size: 50622179
+    - path: data/features/y_train.pkl
+      hash: md5
+      md5: d14a90f6fc11a7db9dd5cd0d5f3e40c6
+      size: 990052
+    - path: params.yaml
+      hash: md5
+      md5: df02fadf3723c583e937e3812bc6ff52
+      size: 215
+    - path: src/modeling/train.py
+      hash: md5
+      md5: 131d77eb47333fc31578d6aa2d91af77
+      size: 1844
+    outs:
+    - path: models/bernoullinb.joblib
+      hash: md5
+      md5: 39798ca9ed39f7d730ce0a03f1cc5547
+      size: 160807
+    - path: models/lightgbm.joblib
+      hash: md5
+      md5: be963eb7b2614b0da6ecca48570056e7
+      size: 547060
+    - path: models/multinomialnb.joblib
+      hash: md5
+      md5: 0aecaa068629a9c06ff314466d22923a
+      size: 160791
+    - path: models/randomforest.joblib
+      hash: md5
+      md5: 818cab8af9cb742c26eb5ffa26433d9e
+      size: 35371721
+  evaluate:
+    cmd: python -m src.modeling.evaluate
+    deps:
+    - path: data/features/X_test.pkl
+      hash: md5
+      md5: 64209890eb52463af60247f2f47b9344
+      size: 12771403
+    - path: data/features/y_test.pkl
+      hash: md5
+      md5: 6dfa93d1bd74276c8c58ca0aec3e36cb
+      size: 248140
+    - path: models/bernoullinb.joblib
+      hash: md5
+      md5: 39798ca9ed39f7d730ce0a03f1cc5547
+      size: 160807
+    - path: models/lightgbm.joblib
+      hash: md5
+      md5: be963eb7b2614b0da6ecca48570056e7
+      size: 547060
+    - path: models/multinomialnb.joblib
+      hash: md5
+      md5: 0aecaa068629a9c06ff314466d22923a
+      size: 160791
+    - path: models/randomforest.joblib
+      hash: md5
+      md5: 818cab8af9cb742c26eb5ffa26433d9e
+      size: 35371721
+    - path: src/modeling/evaluate.py
+      hash: md5
+      md5: 1293a0690911898cc24340d487728fad
+      size: 4870
+    outs:
+    - path: metrics.json
+      hash: md5
+      md5: 62a8342c2a0d99eaaef1634d60041e67
+      size: 904
