@@ -1,0 +1,59 @@
+name: CI/CD Pipeline
+
+on:
+  push:
+    branches:
+      - main
+  pull_request:
+    branches:
+      - main
+
+jobs:
+  build-and-evaluate:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repository
+      uses: actions/checkout@v3
+
+    - name: Set up Python 3.12
+      uses: actions/setup-python@v4
+      with:
+        python-version: '3.12'
+        cache: 'pip'
+
+    - name: Install dependencies
+      run: |
+        python -m pip install --upgrade pip
+        pip install -r requirements.txt
+
+    - name: DVC Pull
+      env:
+        # DagsHub DVC Remote Authentication
+        # The user/password is passed natively by DagsHub for its S3 endpoint
+        AWS_ACCESS_KEY_ID: ${{ secrets.DAGSHUB_USER_TOKEN }}
+        AWS_SECRET_ACCESS_KEY: ${{ secrets.DAGSHUB_USER_TOKEN }}
+      run: |
+        # Pull data from the DagsHub remote ("origin")
+        dvc pull -r origin
+
+    - name: Run Pipeline (Train & Evaluate)
+      env:
+        DAGSHUB_USER_TOKEN: ${{ secrets.DAGSHUB_USER_TOKEN }}
+        MLFLOW_TRACKING_URI: https://dagshub.com/utkarshhg/Fake-news-detection.mlflow
+        MLFLOW_TRACKING_USERNAME: utkarshhg
+        MLFLOW_TRACKING_PASSWORD: ${{ secrets.DAGSHUB_USER_TOKEN }}
+      run: |
+        # Run the full pipeline. If data/code hasn't changed, this is fast.
+        # If it has changed, it trains models and pushes metrics to DagsHub MLflow.
+        dvc repro
+
+    - name: Generate metrics report
+      if: github.event_name == 'pull_request'
+      env:
+        DAGSHUB_USER_TOKEN: ${{ secrets.DAGSHUB_USER_TOKEN }}
+      run: |
+        echo "## Model Metrics Pipeline Completed" >> $GITHUB_STEP_SUMMARY
+        echo "Check DagsHub MLflow for detailed metrics." >> $GITHUB_STEP_SUMMARY
+        # Optional: Use dvc metrics diff if metrics.json is present
+        dvc metrics diff --show-md main >> $GITHUB_STEP_SUMMARY || echo "No metric changes detected." >> $GITHUB_STEP_SUMMARY
